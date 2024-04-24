@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import * as React from "react";
 
@@ -18,7 +17,6 @@ const ScrollArea = React.forwardRef<
     <ScrollAreaPrimitive.Viewport className="size-full rounded-[inherit]">
       {children}
     </ScrollAreaPrimitive.Viewport>
-    {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
     <ScrollBar />
     <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>

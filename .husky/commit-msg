@@ -1,2 +1,13 @@
 #!/bin/sh
-cd "$(dirname "$0")/.." && npx --no -- commitlint --edit $1
+cd "$(dirname "$0")/.."
+
+if command -v npx >/dev/null 2>&1; then
+  npx --no -- commitlint --edit $1
+else
+  if command -v bunx >/dev/null 2>&1; then
+    bunx --no -- commitlint --edit $1
+  else
+    echo "Neither npx nor bunx could be found. Please install one of them."
+    exit 1
+  fi
+fi

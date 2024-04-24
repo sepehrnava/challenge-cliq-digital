@@ -1,3 +1,14 @@
 #!/bin/sh
-# Disable concurent to run `check-types` after ESLint in lint-staged
-cd "$(dirname "$0")/.." && npx lint-staged --concurrent false
+# Disable concurrent to run `check-types` after ESLint in lint-staged
+cd "$(dirname "$0")/.."
+
+if command -v npx >/dev/null 2>&1; then
+  npx lint-staged --concurrent false
+else
+  if command -v bunx >/dev/null 2>&1; then
+    bunx lint-staged --concurrent false
+  else
+    echo "Neither npx nor bunx could be found. Please install one of them."
+    exit 1
+  fi
+fi
