@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --border: 226, 232, 240;
+    --input: 226, 232, 240;
+
+    --ring: 148, 163, 184;
+
+    --background: 226, 232, 240;
+    --foreground: 2, 8, 23;
+
+    --muted: 241, 245, 249;
+    --muted-foreground: 100, 116, 139;
+
+    --popover: 255, 255, 255;
+    --popover-foreground: 2, 8, 23;
+
+    --card: 255, 255, 255;
+    --card-foreground: 2, 8, 23;
+
+    --primary: 15, 23, 42;
+    --primary-foreground: 248, 250, 252;
+
+    --secondary: 241, 245, 249;
+    --secondary-foreground: 15, 23, 42;
+
+    --accent: 241, 245, 249;
+    --accent-foreground: 15, 23, 42;
+
+    --destructive: 239, 68, 68;
+    --destructive-foreground: 248, 250, 252;
+  }
+
+  .dark {
+    --border: 30, 41, 59;
+    --input: 30, 41, 59;
+
+    --ring: 30, 41, 59;
+
+    --background: 44, 41, 48;
+    --foreground: 248, 250, 252;
+
+    --muted: 30, 41, 59;
+    --muted-foreground: 148, 163, 184;
+
+    --popover: 2, 8, 23;
+    --popover-foreground: 248, 250, 252;
+
+    --card: 2, 8, 23;
+    --card-foreground: 248, 250, 252;
+
+    --primary: 244, 132, 3;
+    --primary-foreground: 15, 23, 42;
+
+    --secondary: 35, 34, 41;
+    --secondary-foreground: 248, 250, 252;
+
+    --accent: 30, 41, 59;
+    --accent-foreground: 248, 250, 252;
+
+    --destructive: 127, 29, 29;
+    --destructive-foreground: 248, 250, 252;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
