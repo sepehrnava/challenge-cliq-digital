@@ -13,9 +13,13 @@ export default function Index({
 }: {
   searchParams?: SearchParams;
 }) {
+  // const selectedCity = searchParams?.city;
+
   return (
     <div>
-      <CityLoading />
+      <CityLoading
+      // selectedCity={selectedCity}
+      />
       <Suspense fallback={<GraphLoader />}>
         <Chart location={searchParams!.city} />
       </Suspense>

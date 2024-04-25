@@ -1,9 +1,9 @@
 import type { City } from "@/types/weather/city.type";
 
 import CitiesLayout from "./Cities.layout";
-import { type ComboBoxCities } from "./CitiesComboBox";
+// import { type ComboBoxCities } from "./CitiesComboBox";
 
-async function getTopCities(): Promise<ComboBoxCities[]> {
+async function getTopCities() {
   let data: City[] = [];
   if (process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY) {
     const response = await fetch(
@@ -17,18 +17,14 @@ async function getTopCities(): Promise<ComboBoxCities[]> {
       setTimeout(resolve, 1000);
     });
   }
-
-  const cities: ComboBoxCities[] = data.map((city) => ({
-    id: city.Key,
-    value: city.LocalizedName.toLowerCase(),
-    // capitalize the first letter of the city name
-    label:
-      city.LocalizedName.charAt(0).toUpperCase() + city.LocalizedName.slice(1),
-  }));
-  return cities;
+  return data;
 }
 
-export default async function CityForm() {
+interface CityFormProps {
+  // selectedCity?: string;
+}
+
+export default async function CityForm(_props: CityFormProps) {
   const cities = await getTopCities();
 
   return <CitiesLayout citiesInComboBox={cities} />;

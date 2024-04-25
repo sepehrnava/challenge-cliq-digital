@@ -52,6 +52,7 @@
         "react/jsx-props-no-spreading": "off", // _app.tsx uses spread operator and also, react-hook-form
         "@typescript-eslint/comma-dangle": "off", // Avoid conflict rule between Eslint and Prettier
         "@typescript-eslint/consistent-type-imports": "error", // Ensure `import type` is used when it's necessary
+        "tailwindcss/no-custom-classname": "off", // Allow custom classnames
         "no-restricted-syntax": [
           "error",
           "ForInStatement",
@@ -66,6 +67,21 @@
         "unused-imports/no-unused-imports": "error",
         "react/no-array-index-key": "off",
         "consistent-return": "off",
+        "jsx-a11y/label-has-associated-control": [
+          2,
+          {
+            "labelComponents": [
+              "CustomInputLabel"
+            ],
+            "labelAttributes": [
+              "label"
+            ],
+            "controlComponents": [
+              "CustomInput"
+            ],
+            "depth": 3
+          }
+        ],
         "unused-imports/no-unused-vars": [
           "error",
           {
