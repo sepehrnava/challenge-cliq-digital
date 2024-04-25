@@ -1,0 +1,23 @@
+{
+  "LocalObservationDateTime": "2024-04-25T03:47:00+02:00",
+  "EpochTime": 1714009620,
+  "WeatherText": "Cloudy",
+  "WeatherIcon": 7,
+  "HasPrecipitation": false,
+  "PrecipitationType": null,
+  "IsDayTime": false,
+  "Temperature": {
+    "Metric": {
+      "Value": 3.9,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Imperial": {
+      "Value": 39,
+      "Unit": "F",
+      "UnitType": 18
+    }
+  },
+  "MobileLink": "http://www.accuweather.com/en/nl/amsterdam/249758/current-weather/249758?lang=en-us",
+  "Link": "http://www.accuweather.com/en/nl/amsterdam/249758/current-weather/249758?lang=en-us"
+}

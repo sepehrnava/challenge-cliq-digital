@@ -1,5 +1,7 @@
-import type { City } from "../../types/weather/city.type";
-import ComboboxDemo, { type ComboBoxCities } from "./CitiesComboBox";
+import type { City } from "@/types/weather/city.type";
+
+import CitiesLayout from "./Cities.layout";
+import { type ComboBoxCities } from "./CitiesComboBox";
 
 async function getTopCities(): Promise<ComboBoxCities[]> {
   let data: City[] = [];
@@ -29,9 +31,5 @@ async function getTopCities(): Promise<ComboBoxCities[]> {
 export default async function CityForm() {
   const cities = await getTopCities();
 
-  return (
-    <div>
-      <ComboboxDemo citiesInComboBox={cities} />
-    </div>
-  );
+  return <CitiesLayout citiesInComboBox={cities} />;
 }

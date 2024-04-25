@@ -27,11 +27,11 @@ export type ComboBoxCities = {
   label: string;
 };
 
-interface ComboBoxDemoProps {
+interface ComboBoxProps {
   citiesInComboBox: ComboBoxCities[];
 }
 
-const ComboboxDemo: React.FC<ComboBoxDemoProps> = (props) => {
+const CityComboBox: React.FC<ComboBoxProps> = (props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -81,11 +81,11 @@ const ComboboxDemo: React.FC<ComboBoxDemoProps> = (props) => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-full justify-between pl-0"
         >
           {value
             ? cities.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            : ""}
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -120,4 +120,4 @@ const ComboboxDemo: React.FC<ComboBoxDemoProps> = (props) => {
   );
 };
 
-export default ComboboxDemo;
+export default CityComboBox;

@@ -27,17 +27,15 @@ const BaseTemplate = (props: { children: React.ReactNode }) => {
         disableTransitionOnChange
       >
         <div className="w-full px-1 antialiased">
-          <div className="mx-auto max-w-screen-md">
-            <header className="border-b border-gray-300">
-              <div className="flex justify-between">
-                <nav className="prose flex h-[95px] items-center">
-                  <h1>React Weather</h1>
-                </nav>
-              </div>
-            </header>
+          <header className="border-b border-gray-300">
+            <div className="flex justify-between">
+              <nav className="prose flex h-[95px] items-center">
+                <h1>React Weather</h1>
+              </nav>
+            </div>
+          </header>
 
-            <main>{props.children}</main>
-          </div>
+          <main>{props.children}</main>
         </div>
       </ThemeProvider>
     </body>
