@@ -8,7 +8,7 @@ interface CityWrapperProps {
   // selectedCity?: string;
 }
 
-const CityLoading: FC<CityWrapperProps> = (_props) => {
+const CityWrapper: FC<CityWrapperProps> = (_props) => {
   return (
     <div className="mx-auto max-w-md py-[72px]">
       <Suspense fallback={<CitiesLayout />}>
@@ -21,4 +21,4 @@ const CityLoading: FC<CityWrapperProps> = (_props) => {
   );
 };
 
-export default CityLoading;
+export default CityWrapper;

@@ -1,8 +1,7 @@
-import { Suspense } from "react";
-
-import Chart from "../components/chart/Chart";
-import GraphLoader from "../components/chart/GraphLoader";
-import CityLoading from "../components/cities/CityLoading";
+import GraphWrapper from "@/components/chart/GraphWrapper";
+import CityWrapper from "@/components/cities/CitiesWrapper";
+import TodayWeatherWrapper from "@/components/currentWeather/TodayWeatherWrapper";
+import FutureForecastWrapper from "@/components/nextWeather/FutureForecastWrapper";
 
 type SearchParams = {
   city?: string;
@@ -11,18 +10,16 @@ type SearchParams = {
 export default function Index({
   searchParams,
 }: {
-  searchParams?: SearchParams;
+  searchParams: SearchParams;
 }) {
   // const selectedCity = searchParams?.city;
 
   return (
     <div>
-      <CityLoading
-      // selectedCity={selectedCity}
-      />
-      <Suspense fallback={<GraphLoader />}>
-        <Chart location={searchParams!.city} />
-      </Suspense>
+      <CityWrapper />
+      <TodayWeatherWrapper searchParams={searchParams} />
+      <FutureForecastWrapper searchParams={searchParams} />
+      <GraphWrapper searchParams={searchParams} />
     </div>
   );
 }

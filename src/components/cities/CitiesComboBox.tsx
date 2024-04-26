@@ -66,6 +66,7 @@ const CityComboBox: React.FC<ComboBoxProps> = (props) => {
         list="city-list"
         defaultValue={selectedCity}
         onChange={handleChange}
+        autoComplete="off"
       />
       <div className="err h-7">
         {error && <p className="text-red-500">{error}</p>}

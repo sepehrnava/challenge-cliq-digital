@@ -1,5 +1,7 @@
 import type { WeatherCondition } from "@/types/weather/weatherCondition.type";
 
+import TodayWeatherLoading from "./TodayWeatherLayout";
+
 async function getTodayWeather(locationKey: string) {
   let data: WeatherCondition;
   if (process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY) {
@@ -9,11 +11,18 @@ async function getTodayWeather(locationKey: string) {
     data = await response.json();
   } else {
     data = await import("@/data/weatherCondition.json");
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
   }
   return data;
 }
 
-export default async function TodayWeather() {
-  const currentcondition = await getTodayWeather("249758");
-  return <div>{currentcondition.WeatherText}</div>;
+interface TodayWeatherProps {
+  locationKey: string;
+}
+
+export default async function TodayWeather(props: TodayWeatherProps) {
+  const currentcondition = await getTodayWeather(props.locationKey);
+  return <TodayWeatherLoading currentcondition={currentcondition} />;
 }

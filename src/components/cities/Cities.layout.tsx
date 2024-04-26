@@ -37,13 +37,14 @@ const CitiesLayout: FC<ICitiesLayoutProps> = (props) => {
         <input
           id="citiesInput"
           name="citiesInput"
-          className="ssr h-[50px] rounded-[5px] bg-secondary px-4"
+          className="ssr mb-7 h-[50px] rounded-[5px] bg-secondary px-4"
           type="text"
           list="city-list"
+          autoComplete="off"
         />
       )}
       {!props.citiesInComboBox && (
-        <div className="prose absolute right-1 top-1/2 -mt-px flex translate-y-1/2">
+        <div className="prose absolute right-2 top-[50px] -mt-px flex">
           <p className="!m-0 text-sm text-white/70">fetching cities...</p>
         </div>
       )}

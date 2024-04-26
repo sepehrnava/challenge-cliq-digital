@@ -21,6 +21,9 @@ async function getDailyEvolutions(
     data = await response.json();
   } else {
     data = (await import("@/data/12hours.london.json")).data;
+    await new Promise<void>((resolve) => {
+      setTimeout(resolve, 1000);
+    });
   }
   // first 6 data
   const dailyEvolutions = data.slice(0, 6).map((dailyForecast) => {
@@ -72,7 +75,11 @@ async function Chart({ location }: { location?: string }) {
   });
 
   return (
-    <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="presentation">
+    <svg
+      className="overflow-visible"
+      viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+      role="presentation"
+    >
       <polyline
         fill="none"
         className="stroke-primary"
@@ -94,14 +101,11 @@ async function Chart({ location }: { location?: string }) {
             />
 
             <g
-              transform={`translate(${x} ${chartHeight - (paddingY - offsetY)})`}
-              className="prose"
+              transform={`translate(${x - paddingX} ${chartHeight - (paddingY - offsetY)})`}
+              // className="prose"
             >
               <text
-                // transform="rotate(45)"
                 textAnchor="start"
-                // @ts-ignore
-                transformOrigin="50% 50%"
                 fontSize={36}
                 className="select-none fill-white"
               >

@@ -85,4 +85,8 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+  .cardGradient {
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(196, 196, 196, 0.0) 11%, rgba(196, 196, 196, 0.0877) 50%, rgba(196, 196, 196, 0.2) 100%);
+}
 }

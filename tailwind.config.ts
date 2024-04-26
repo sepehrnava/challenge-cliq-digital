@@ -29,12 +29,19 @@ const config = {
       typography: ({ theme }: PluginUtils) => ({
         DEFAULT: {
           css: {
+            "--tw-prose-body": theme("colors.white"),
+            "--tw-prose-headings": theme("colors.white"),
             h1: {
               color: "white",
               fontSize: "2.25rem",
               fontWeight: theme("fontWeight.bold"),
-              lineHeight: "1.25",
+              lineHeight: "42.19px",
               textAlign: "left",
+            },
+            h2: {
+              fontSize: "36px",
+              fontWeight: theme("fontWeight.bold"),
+              lineHeight: "42.19px",
             },
           },
         },
