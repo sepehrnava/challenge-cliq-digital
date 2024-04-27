@@ -12,6 +12,7 @@ export interface City {
   TimeZone?: TimeZone;
   GeoPosition?: GeoPosition;
   IsAlias?: boolean;
+  ParentCity?: any;
   SupplementalAdminAreas?: any[];
   DataSets?: string[];
 }
@@ -43,18 +44,18 @@ export interface TimeZone {
   Name: string;
   GmtOffset: number;
   IsDaylightSaving: boolean;
-  NextOffsetChange: any;
+  NextOffsetChange?: any;
 }
 
 export interface GeoPosition {
   Latitude: number;
   Longitude: number;
-  Elevation: Elevation;
+  Elevation?: Elevation;
 }
 
 export interface Elevation {
-  Metric: Metric;
-  Imperial: Imperial;
+  Metric?: Metric;
+  Imperial?: Imperial;
 }
 
 export interface Metric {

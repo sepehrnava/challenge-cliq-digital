@@ -1,4 +1,5 @@
 import type { AvailableUnits } from "@/components/currentWeather/Tempreature";
+import { sleep } from "@/lib/utils";
 import type { FutureForecastAPI } from "@/types/weather/FutureForecast";
 
 import FutureForecastLayout from "./FutureForecastLayout";
@@ -16,9 +17,7 @@ async function get5DaysForecast(locationKey: string, unit?: AvailableUnits) {
     } else {
       data = (await import("@/data/5days-Metric.json")) as FutureForecastAPI;
     }
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+    await sleep();
   }
   return data;
 }

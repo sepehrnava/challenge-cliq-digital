@@ -5,6 +5,7 @@
 
 "use server";
 
+import { sleep } from "@/lib/utils";
 import type { HourlyForecast } from "@/types/weather/hourlyForecast.type";
 
 type DailyEvolutions = {
@@ -24,9 +25,7 @@ async function getDailyEvolutions(
     data = await response.json();
   } else {
     data = (await import("@/data/12hours.london.json")).data;
-    await new Promise<void>((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+    await sleep(1000);
   }
   // first 6 data
   const dailyEvolutions = data.slice(0, 6).map((dailyForecast) => {

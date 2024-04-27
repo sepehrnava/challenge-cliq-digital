@@ -6,13 +6,7 @@
 
 import React from "react";
 
-import { cn } from "@/lib/utils";
-
-async function sleep(ms = 1000) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
+import { cn, sleep } from "@/lib/utils";
 
 let hover = false;
 

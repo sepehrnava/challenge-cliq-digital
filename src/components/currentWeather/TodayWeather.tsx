@@ -1,3 +1,4 @@
+import { sleep } from "@/lib/utils";
 import type { WeatherCondition } from "@/types/weather/weatherCondition.type";
 
 import TodayWeatherLayout from "./TodayWeatherLayout";
@@ -11,9 +12,7 @@ async function getTodayWeather(locationKey: string) {
     data = await response.json();
   } else {
     data = await import("@/data/weatherCondition.json");
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+    await sleep();
   }
   return data;
 }

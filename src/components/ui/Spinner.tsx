@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Spinner() {
   return (
-    <div role="status">
+    <span role="status">
       <svg
         aria-hidden="true"
         className="size-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
@@ -20,6 +20,6 @@ export default function Spinner() {
         />
       </svg>
       <span className="sr-only">Loading...</span>
-    </div>
+    </span>
   );
 }
