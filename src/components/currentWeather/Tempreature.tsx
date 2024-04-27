@@ -33,9 +33,12 @@ export default function Temperature(props: TemperatureProps) {
   }, [pathname, router, searchParams, unit]);
 
   return (
-    <div className="prose flex items-center justify-center gap-10 prose-p:!m-0">
+    <div className="prose mx-auto flex items-center justify-center gap-10 prose-p:!m-0">
       <p className="text-8xl font-normal text-primary">
-        {props.temperature[unit].Value}°
+        {props.temperature &&
+          props.temperature[unit] &&
+          props.temperature[unit].Value}
+        °
       </p>
       <div className="prose flex flex-col justify-between gap-[10px] prose-p:!m-0 prose-p:px-[13px] prose-p:py-1 ">
         <button
@@ -44,7 +47,7 @@ export default function Temperature(props: TemperatureProps) {
           type="button"
         >
           <p className="text-4xl font-black text-primary">
-            {props.temperature.Metric.Unit}
+            {props.temperature?.Metric?.Unit}
           </p>
         </button>
         <button
@@ -53,7 +56,7 @@ export default function Temperature(props: TemperatureProps) {
           type="button"
         >
           <p className="text-4xl font-black text-primary">
-            {props.temperature.Imperial.Unit}
+            {props.temperature?.Imperial?.Unit}
           </p>
         </button>
       </div>

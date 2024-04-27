@@ -12,7 +12,7 @@ interface TodayWeatherWrapperProps {
 export default function TodayWeatherWrapper(props: TodayWeatherWrapperProps) {
   return (
     <div className="w-full bg-secondary">
-      <div className="mx-auto max-w-md py-[72px]">
+      <div className="container py-[72px]">
         <Suspense fallback={<TodayWeatherLayout />}>
           {props.searchParams.city ? (
             <TodayWeather locationKey={props.searchParams.city} />

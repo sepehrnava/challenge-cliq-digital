@@ -8,16 +8,15 @@ interface TodayWeatherLoadingProps {
 }
 
 export default function TodayWeatherLayout(props?: TodayWeatherLoadingProps) {
-  const currentcondition = props?.currentcondition;
   return (
-    <div className="prose text-center">
-      <div className="prose mb-[35px]">
-        {currentcondition ? (
+    <div className="text-center ">
+      <div className="prose mx-auto mb-[35px]">
+        {props?.currentcondition && props.currentcondition.Link ? (
           <p className="text-4xl font-black capitalize">
             {(() => {
               const regex = /www\.accuweather\.com\/en\/(\w+)\/(\w+)\//;
-              const match = currentcondition.Link.match(regex);
-              if (match && match.length === 3) {
+              const match = regex.exec(props.currentcondition.Link);
+              if (match && match.length > 2) {
                 const countryCode = match[1]?.toUpperCase();
                 const cityName = match[2];
                 return `${cityName}, ${countryCode}`;
@@ -31,21 +30,20 @@ export default function TodayWeatherLayout(props?: TodayWeatherLoadingProps) {
           </div>
         )}
       </div>
-      {currentcondition ? (
-        <Tempreature temperature={currentcondition.Temperature} />
+      {props?.currentcondition ? (
+        <Tempreature temperature={props.currentcondition.Temperature} />
       ) : (
-        <Skeleton className="h-[106px] w-full" />
+        <Skeleton className="mx-auto h-[106px] w-full" />
       )}
       <div>
-        {currentcondition ? (
+        {props?.currentcondition ? (
           <p className="text-2xl font-black">
-            {new Date(currentcondition.LocalObservationDateTime).toLocaleString(
-              "en-US",
-              {
-                weekday: "long",
-              },
-            )}
-            , {currentcondition.WeatherText.toLowerCase()}
+            {new Date(
+              props.currentcondition.LocalObservationDateTime,
+            )?.toLocaleString("en-US", {
+              weekday: "long",
+            })}
+            , {props.currentcondition.WeatherText?.toLowerCase()}
           </p>
         ) : (
           <div className="my-6">

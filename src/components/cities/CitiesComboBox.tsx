@@ -5,14 +5,8 @@ import * as React from "react";
 
 import type { City } from "@/types/weather/city.type";
 
-import useGpsLoader from "../../state/gpsLoader.state";
+import useCityLoader from "../../state/cityLoader.state";
 import Spinner from "../ui/Spinner";
-
-// export type ComboBoxCities = {
-//   id: string;
-//   value: string;
-//   label: string;
-// };
 
 interface ComboBoxProps {
   citiesInComboBox: City[];
@@ -23,7 +17,7 @@ const CityComboBox: React.FC<ComboBoxProps> = (props) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [error, setError] = React.useState<string | null>(null);
-  const { loading: isGpsLoading } = useGpsLoader();
+  const { loading: isCityLoading } = useCityLoader();
   const cities = props.citiesInComboBox;
 
   function cityIdToValue(id: string) {
@@ -33,17 +27,6 @@ const CityComboBox: React.FC<ComboBoxProps> = (props) => {
   function cityValueToId(val: string) {
     return cities.find((city) => city.LocalizedName === val)?.Key;
   }
-
-  // const createQueryString = React.useCallback(
-  //   (name: string, val: string) => {
-  //     const params = new URLSearchParams(searchParams.toString());
-  //     params.set(name, cityValueToId(val) || "");
-
-  //     return params.toString();
-  //   },
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [searchParams],
-  // );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentValue = e.currentTarget.value;
@@ -86,9 +69,10 @@ const CityComboBox: React.FC<ComboBoxProps> = (props) => {
           autoComplete="off"
         />
         <div className="prose absolute right-2 top-1/2 -mt-px flex -translate-y-1/2">
-          {isGpsLoading && (
+          {isCityLoading && (
             <p className="!m-0 flex items-center gap-2 text-sm text-white/50">
-              fetching nearest city from your location... <Spinner />
+              {typeof isCityLoading === "string" ? isCityLoading : ""}{" "}
+              <Spinner />
             </p>
           )}
         </div>
@@ -105,51 +89,6 @@ const CityComboBox: React.FC<ComboBoxProps> = (props) => {
       </datalist>
     </>
   );
-
-  // return (
-  //   <Popover open={open} onOpenChange={setOpen}>
-  //     <PopoverTrigger asChild>
-  //       <Button
-  //         variant="outline"
-  //         role="combobox"
-  //         aria-expanded={open}
-  //         className="w-full justify-between pl-0"
-  //       >
-  //         {value
-  //           ? cities.find((framework) => framework.value === value)?.label
-  //           : ""}
-  //         <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
-  //       </Button>
-  //     </PopoverTrigger>
-  //     <PopoverContent className="w-[200px] p-0">
-  //       <Command>
-  //         <CommandInput placeholder="Search framework..." />
-  //         <CommandEmpty>No framework found.</CommandEmpty>
-  //         <CommandGroup>
-  //           <ScrollArea className="h-[200px]">
-  //             <CommandList className="">
-  //               {cities.map((framework) => (
-  //                 <CommandItem
-  //                   key={framework.value}
-  //                   value={framework.value}
-  //                   onSelect={handleSelect}
-  //                 >
-  //                   <Check
-  //                     className={cn(
-  //                       "mr-2 h-4 w-4",
-  //                       value === framework.value ? "opacity-100" : "opacity-0",
-  //                     )}
-  //                   />
-  //                   {framework.label}
-  //                 </CommandItem>
-  //               ))}
-  //             </CommandList>
-  //           </ScrollArea>
-  //         </CommandGroup>
-  //       </Command>
-  //     </PopoverContent>
-  //   </Popover>
-  // );
 };
 
 export default CityComboBox;
