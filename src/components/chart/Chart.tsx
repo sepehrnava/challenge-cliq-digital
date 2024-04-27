@@ -1,3 +1,6 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-return-assign */
+/* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
 
 "use server";
@@ -69,22 +72,39 @@ async function Chart({ location }: { location?: string }) {
     };
   });
 
-  const points = properties.map((point) => {
-    const { x, y } = point;
-    return `${x},${y}`;
-  });
+  function svgQuadraticCurvePath() {
+    const points = properties.map((point) => {
+      const { x, y } = point;
+      return [x, y];
+    });
+    if (!points?.length || !points[0] || !points[0].length || !points[0][0])
+      return "";
+    let path = `M${points[0][0]},${points[0][1]}`;
+
+    for (let i = 0; i < points.length - 1; i++) {
+      const xMid = (points[i]![0]! + points[i + 1]![0]!) / 2;
+      const yMid = (points[i]![1]! + points[i + 1]![1]!) / 2;
+      const cpX1 = (xMid + points[i]![0]!) / 2;
+      const cpX2 = (xMid + points[i + 1]![0]!) / 2;
+      path += `Q ${cpX1}, ${points[i]![1]}, ${xMid}, ${yMid} Q ${cpX2}, ${
+        points[i + 1]![1]
+      }, ${points[i + 1]![0]}, ${points[i + 1]![1]}`;
+    }
+
+    return path;
+  }
 
   return (
     <svg
-      className="overflow-visible"
+      className="svgAnimation overflow-visible"
       viewBox={`0 0 ${chartWidth} ${chartHeight}`}
       role="presentation"
     >
-      <polyline
+      <path
         fill="none"
         className="stroke-primary"
-        strokeWidth={2}
-        points={`${points}`}
+        strokeWidth={10}
+        d={svgQuadraticCurvePath()}
       />
 
       {properties.map((property, index) => {
@@ -96,10 +116,11 @@ async function Chart({ location }: { location?: string }) {
               className="fill-primary"
               cx={x}
               cy={y}
-              r={12}
+              r={25}
               strokeWidth={2}
-            />
-
+            >
+              <title>{`${time} - ${data[index]!.total}°C`}</title>
+            </circle>
             <g
               transform={`translate(${x - paddingX} ${chartHeight - (paddingY - offsetY)})`}
               // className="prose"

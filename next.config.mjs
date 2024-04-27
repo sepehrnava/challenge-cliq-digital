@@ -6,4 +6,11 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 /** @type {import('next').NextConfig} */
-export default bundleAnalyzer();
+const nextConfig = {
+  images: {
+    domains: ["developer.accuweather.com"],
+  },
+};
+
+/** @type {import('next').NextConfig} */
+export default bundleAnalyzer(nextConfig);
