@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import TodayWeather from "./TodayWeather";
-import TodayWeatherLoading from "./TodayWeatherLayout";
+import TodayWeatherLayout from "./TodayWeatherLayout";
 
 interface TodayWeatherWrapperProps {
   searchParams: {
@@ -13,7 +13,7 @@ export default function TodayWeatherWrapper(props: TodayWeatherWrapperProps) {
   return (
     <div className="w-full bg-secondary">
       <div className="mx-auto max-w-md py-[72px]">
-        <Suspense fallback={<TodayWeatherLoading />}>
+        <Suspense fallback={<TodayWeatherLayout />}>
           {props.searchParams.city ? (
             <TodayWeather locationKey={props.searchParams.city} />
           ) : (

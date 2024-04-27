@@ -10,13 +10,15 @@ interface CityWrapperProps {
 
 const CityWrapper: FC<CityWrapperProps> = (_props) => {
   return (
-    <div className="mx-auto max-w-md py-[72px]">
+    <div className="container max-w-[644px] py-[72px]">
       <Suspense fallback={<CitiesLayout />}>
         <CityForm
         // selectedCity={props.selectedCity}
         />
       </Suspense>
-      <Geo />
+      <Suspense fallback={null}>
+        <Geo />
+      </Suspense>
     </div>
   );
 };

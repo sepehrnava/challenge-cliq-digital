@@ -1,6 +1,6 @@
 import type { WeatherCondition } from "@/types/weather/weatherCondition.type";
 
-import TodayWeatherLoading from "./TodayWeatherLayout";
+import TodayWeatherLayout from "./TodayWeatherLayout";
 
 async function getTodayWeather(locationKey: string) {
   let data: WeatherCondition;
@@ -24,5 +24,5 @@ interface TodayWeatherProps {
 
 export default async function TodayWeather(props: TodayWeatherProps) {
   const currentcondition = await getTodayWeather(props.locationKey);
-  return <TodayWeatherLoading currentcondition={currentcondition} />;
+  return <TodayWeatherLayout currentcondition={currentcondition} />;
 }

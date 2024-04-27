@@ -14,7 +14,7 @@ interface GraphProps {
 export default async function GraphWrapper(props: GraphProps) {
   return (
     <div className="bg-secondary">
-      <div className="mx-auto max-w-md pb-[60px] pt-[92px]">
+      <div className="container pb-[60px] pt-[92px]">
         <div className="prose">
           <h2>DAILY EVOLUTION</h2>
         </div>

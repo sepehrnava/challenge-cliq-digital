@@ -26,9 +26,9 @@ const BaseTemplate = (props: { children: React.ReactNode }) => {
         enableSystem={false}
         disableTransitionOnChange
       >
-        <div className="px-1 antialiased">
+        <div className="antialiased">
           <header className="h-[95px] bg-secondary">
-            <nav className="mx-auto flex size-full w-full max-w-md items-center">
+            <nav className="container flex size-full w-full items-center">
               <div className="prose">
                 <h1 className="">React Weather</h1>
               </div>
@@ -36,6 +36,7 @@ const BaseTemplate = (props: { children: React.ReactNode }) => {
           </header>
 
           <main>{props.children}</main>
+          <footer className="h-screen" />
         </div>
       </ThemeProvider>
     </body>

@@ -51,7 +51,9 @@ const CityComboBox: React.FC<ComboBoxProps> = (props) => {
       setError("City not found");
     } else {
       setError(null);
-      router.push(`${pathname}?${createQueryString("city", currentValue)}`);
+      router.push(`${pathname}?${createQueryString("city", currentValue)}`, {
+        scroll: false,
+      });
     }
   };
 
