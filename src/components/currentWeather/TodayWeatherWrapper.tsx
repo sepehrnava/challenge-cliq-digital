@@ -17,9 +17,7 @@ export default function TodayWeatherWrapper(props: TodayWeatherWrapperProps) {
           {props.searchParams.city ? (
             <TodayWeather locationKey={props.searchParams.city} />
           ) : (
-            <p className="h-[237px]">
-              select a city to view today&apos;s weather.
-            </p>
+            <TodayWeatherLayout />
           )}
         </Suspense>
       </div>

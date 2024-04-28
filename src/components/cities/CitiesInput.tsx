@@ -39,7 +39,7 @@ const CityInput: React.FC<CityInputProps> = (props) => {
   const [error, setError] = React.useState<string | null>(null);
   const { loading: isCityLoading } = useCityLoader();
 
-  function cityIdToValue(id: string) {
+  function cityIdToValue(id: string | null) {
     return cities.find((city) => city.Key === id)?.LocalizedName;
   }
 
@@ -47,8 +47,8 @@ const CityInput: React.FC<CityInputProps> = (props) => {
     return cities.find((city) => city.LocalizedName === val)?.Key;
   }
 
-  const selectedCity = cityIdToValue(searchParams.get("city") || "");
-  const [value, setValue] = React.useState(selectedCity || "");
+  const selectedCity = cityIdToValue(searchParams.get("city"));
+  const [value, setValue] = React.useState(selectedCity);
 
   const handleSelect = (currentValue: string) => {
     setValue(currentValue === value ? "" : currentValue);
@@ -70,7 +70,7 @@ const CityInput: React.FC<CityInputProps> = (props) => {
     }
     const foundCity = cities.find((city) => city.LocalizedName === value);
     if (!foundCity) {
-      if (cityFromGps !== value) {
+      if (cityFromGps !== value && value) {
         setError("City does not exist in top 150 cities!");
       } else {
         setError(null);
@@ -78,7 +78,7 @@ const CityInput: React.FC<CityInputProps> = (props) => {
           ...prev,
           {
             Key: current.get("city")!,
-            LocalizedName: value,
+            LocalizedName: value!,
           },
         ]);
       }
@@ -99,8 +99,8 @@ const CityInput: React.FC<CityInputProps> = (props) => {
     if (cityFromGps) setValue(cityFromGps);
   }, [cityFromGps]);
 
+  // if is open and clicked outside of inputBtnRef.current or citiesListRef.current then close
   React.useEffect(() => {
-    // if is open and clicked outside of inputBtnRef.current or citiesListRef.current then close
     if (!open) return;
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -140,7 +140,7 @@ const CityInput: React.FC<CityInputProps> = (props) => {
 
           <Command
             ref={citiesListRef}
-            className="absolute top-[50px] -mt-1 hidden min-h-[300px] w-full bg-secondary"
+            className="absolute top-[50px] z-50 -mt-1 hidden min-h-[300px] w-full bg-secondary"
             style={{ display: open ? "block" : "none" }}
           >
             <div className="relative">

@@ -5,7 +5,7 @@ import React from "react";
 import useGps from "@/utils/hooks/useGps";
 
 interface GeoProps {
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 // Geo component that ask for the user's location and if param does not exist in url, then add city param to the url of nearest city
@@ -13,7 +13,7 @@ function Geo(props: GeoProps) {
   const { city, getGpsHandler } = useGps();
 
   React.useEffect(() => {
-    props.setValue(city);
+    if (city) props.setValue(city);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city]);
 

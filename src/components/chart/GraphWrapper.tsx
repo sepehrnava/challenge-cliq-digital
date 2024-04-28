@@ -1,5 +1,3 @@
-// import Spinner from "@/components/ui/Spinner";
-
 import { Suspense } from "react";
 
 import Chart from "./Chart";
@@ -21,7 +19,11 @@ export default async function GraphWrapper(props: GraphProps) {
           </h2>
         </div>
         <Suspense fallback={<GraphLoading />}>
-          <Chart location={props.searchParams?.city} />
+          {props.searchParams.city ? (
+            <Chart location={props.searchParams?.city} />
+          ) : (
+            <GraphLoading />
+          )}
         </Suspense>
       </div>
     </div>

@@ -12,9 +12,8 @@ type DailyEvolutions = {
 };
 
 async function getDailyEvolutions(
-  location?: string,
-): Promise<DailyEvolutions[] | undefined> {
-  if (!location) return;
+  location: string,
+): Promise<DailyEvolutions[]> {
   let data: HourlyForecast[];
   if (process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY) {
     const response = await fetch(
@@ -38,14 +37,8 @@ async function getDailyEvolutions(
   return dailyEvolutions;
 }
 
-async function Chart({ location }: { location?: string }) {
+async function Chart({ location }: { location: string }) {
   const data = await getDailyEvolutions(location);
-  if (!data)
-    return (
-      <div className="">
-        <p>select a city to view daily Evolutions chart.</p>
-      </div>
-    );
   const chartWidth = 1200;
   const chartHeight = 400;
   const offsetY = 30;

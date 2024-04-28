@@ -30,9 +30,7 @@ export default function FutureForecastWrapper(
             unit={props.searchParams.unit}
           />
         ) : (
-          <p className="h-[calc(42.19px_+_395px)]">
-            select a city to view future forecast
-          </p>
+          <FutureForecastLayout />
         )}
       </Suspense>
     </div>
