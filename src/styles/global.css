@@ -43,7 +43,7 @@
     --background: 44, 41, 48;
     --foreground: 248, 250, 252;
 
-    --muted: 30, 41, 59;
+    --muted: 50, 50, 60;
     --muted-foreground: 148, 163, 184;
 
     --popover: 2, 8, 23;
@@ -94,7 +94,7 @@
     stroke-dasharray: 1200;
     stroke-dashoffset: 1200;
     animation-name: drawSvg;
-    animation-delay: 0.5s;
+    animation-delay: 0.8s;
     animation-duration: 2s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-in-out;
@@ -102,7 +102,7 @@
       transition: all 0.3s ease-in-out;
       cursor: pointer;
       &:hover {
-        r: 30;
+        r: 20;
       }
     }
   }

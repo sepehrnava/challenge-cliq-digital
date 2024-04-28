@@ -42,6 +42,7 @@ export default function Temperature(props: TemperatureProps) {
       </p>
       <div className="prose flex flex-col justify-between gap-[10px] prose-p:!m-0 prose-p:px-[13px] prose-p:py-1 ">
         <button
+          id="unitToMetric"
           onClick={() => setUnit("Metric")}
           className="cardGradient"
           type="button"
@@ -51,6 +52,7 @@ export default function Temperature(props: TemperatureProps) {
           </p>
         </button>
         <button
+          id="unitToImperial"
           onClick={() => setUnit("Imperial")}
           className="cardGradient"
           type="button"

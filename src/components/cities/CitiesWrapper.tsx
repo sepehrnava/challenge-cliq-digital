@@ -2,7 +2,6 @@ import { type FC, Suspense } from "react";
 
 import CitiesLayout from "./Cities.layout";
 import CityForm from "./CityForm";
-import Geo from "./Geo";
 
 interface CityWrapperProps {
   // selectedCity?: string;
@@ -15,9 +14,6 @@ const CityWrapper: FC<CityWrapperProps> = (_props) => {
         <CityForm
         // selectedCity={props.selectedCity}
         />
-      </Suspense>
-      <Suspense fallback={null}>
-        <Geo />
       </Suspense>
     </div>
   );

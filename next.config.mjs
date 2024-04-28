@@ -8,7 +8,14 @@ const bundleAnalyzer = withBundleAnalyzer({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["developer.accuweather.com"],
+    // domains: ["developer.accuweather.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "developer.accuweather.com",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

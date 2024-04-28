@@ -3,8 +3,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
 
-"use server";
-
 import { sleep } from "@/lib/utils";
 import type { HourlyForecast } from "@/types/weather/hourlyForecast.type";
 
@@ -95,6 +93,7 @@ async function Chart({ location }: { location?: string }) {
 
   return (
     <svg
+      id="chart"
       className="svgAnimation overflow-visible"
       viewBox={`0 0 ${chartWidth} ${chartHeight}`}
       role="presentation"
@@ -115,7 +114,7 @@ async function Chart({ location }: { location?: string }) {
               className="fill-primary"
               cx={x}
               cy={y}
-              r={25}
+              r={15}
               strokeWidth={2}
             >
               <title>{`${time} - ${data[index]!.total}°C`}</title>

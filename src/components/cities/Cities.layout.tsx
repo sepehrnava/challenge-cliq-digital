@@ -3,8 +3,9 @@ import type { FC } from "react";
 
 import type { City } from "@/types/weather/city.type";
 
+import { Skeleton } from "../ui/skeleton";
 import Spinner from "../ui/Spinner";
-import CityComboBox from "./CitiesComboBox";
+import CityInput from "./CitiesInput";
 
 interface ICitiesLayoutProps {
   citiesInComboBox?: City[];
@@ -33,24 +34,16 @@ const CitiesLayout: FC<ICitiesLayoutProps> = (props) => {
         City Name
       </label>
       {props.citiesInComboBox ? (
-        <CityComboBox citiesInComboBox={props.citiesInComboBox} />
+        <CityInput citiesInComboBox={props.citiesInComboBox} />
       ) : (
         <>
-          <div className="relative w-full">
-            <input
-              id="citiesInput"
-              name="citiesInput"
-              className="ssr mb-0 h-[50px] w-full rounded-[5px] bg-secondary px-4"
-              type="text"
-              list="city-list"
-              autoComplete="off"
-            />
+          <Skeleton className="relative h-[50px] w-full rounded-[5px] px-4">
             <div className="prose absolute right-2 top-1/2 -mt-px flex -translate-y-1/2">
               <p className="!m-0 flex items-center gap-2 text-sm text-white/50">
                 fetching cities... <Spinner />
               </p>
             </div>
-          </div>
+          </Skeleton>
           <div className="err h-7" />
         </>
       )}

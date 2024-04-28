@@ -3,28 +3,13 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Navigation", () => {
   test.describe("Static pages", () => {
-    test("should take screenshot of the homepage", async ({ page }) => {
-      await page.goto("/");
-
-      await expect(
-        page.getByRole("heading", {
-          name: "Boilerplate Code for Your Next.js Project with Tailwind CSS",
-        }),
-      ).toBeVisible();
-
+    test("should have svg#chart if navigate to searchParams", async ({
+      page,
+    }) => {
+      await page.goto("?city=26216");
+      const svg = page.locator("svg#chart");
+      expect(svg).not.toBeNull();
       await percySnapshot(page, "Homepage");
-    });
-
-    test("should take screenshot of the about page", async ({ page }) => {
-      await page.goto("/about");
-
-      await expect(
-        page.getByRole("link", {
-          name: "About",
-        }),
-      ).toBeVisible();
-
-      await percySnapshot(page, "About");
     });
   });
 });

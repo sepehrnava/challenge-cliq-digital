@@ -22,7 +22,7 @@ export default function FutureForecastLayout(
   const DailyForecasts = props?.forecasts?.DailyForecasts || [];
 
   return (
-    <Carousel>
+    <Carousel id="futureForecast">
       <CarouselContent className="lg:justify-center">
         {DailyForecasts.length > 0 ? (
           DailyForecasts.map((forecast, index) => (
@@ -53,10 +53,16 @@ export default function FutureForecastLayout(
                       className="-ml-3 mb-4"
                     />
                     <div className="flex w-full items-center justify-between">
-                      <p className="!mb-4 !mt-0 ml-[-7px] text-5xl font-black text-primary">
+                      <p
+                        data-testid="maxTemp"
+                        className="!mb-4 !mt-0 ml-[-7px] text-5xl font-black text-primary"
+                      >
                         {forecast.Temperature.Maximum.Value.toFixed(0)}°
                       </p>
-                      <p className="!mb-4 !mt-3 mr-[-9px] text-4xl font-black">
+                      <p
+                        data-testid="minTemp"
+                        className="!mb-4 !mt-3 mr-[-9px] text-4xl font-black"
+                      >
                         {forecast.Temperature.Minimum.Value.toFixed(0)}°
                       </p>
                     </div>
