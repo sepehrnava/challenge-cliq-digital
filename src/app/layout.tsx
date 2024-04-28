@@ -38,9 +38,16 @@ const fontSans = FontSans({
 export default function Layout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, maximum-scale=5, user-scalable=yes, width=device-width"
+        />
+        <title>React Weather</title>
+      </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased overflow-x-hidden max-w-screen",
           (fontSans as any).variable,
         )}
       >

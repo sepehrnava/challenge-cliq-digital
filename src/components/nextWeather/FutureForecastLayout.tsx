@@ -55,13 +55,13 @@ export default function FutureForecastLayout(
                     <div className="flex w-full items-center justify-between">
                       <p
                         data-testid="maxTemp"
-                        className="!mb-4 !mt-0 ml-[-7px] text-5xl font-black text-primary"
+                        className="!mb-4 !mt-0 ml-[-7px] text-4xl font-black text-primary md:text-5xl"
                       >
                         {forecast.Temperature.Maximum.Value.toFixed(0)}°
                       </p>
                       <p
                         data-testid="minTemp"
-                        className="!mb-4 !mt-3 mr-[-9px] text-4xl font-black"
+                        className="!mb-4 !mt-3 mr-[-9px] text-3xl font-black md:text-4xl"
                       >
                         {forecast.Temperature.Minimum.Value.toFixed(0)}°
                       </p>

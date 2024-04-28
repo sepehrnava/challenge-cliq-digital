@@ -10,6 +10,10 @@ async function getTopCities() {
     const response = await fetch(
       `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=${process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY}`,
     );
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(err);
+    }
     data = await response.json();
   } else {
     data = (await import("@/data/150.json")).data;

@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
+import { cn } from "@/lib/utils";
 import type { WeatherCondition } from "@/types/weather/weatherCondition.type";
 
 interface TemperatureProps {
@@ -34,7 +35,7 @@ export default function Temperature(props: TemperatureProps) {
 
   return (
     <div className="prose mx-auto flex items-center justify-center gap-10 prose-p:!m-0">
-      <p className="text-8xl font-normal text-primary">
+      <p className="min-w-[130px] text-6xl font-normal text-primary md:min-w-[200px] md:text-8xl">
         {props.temperature &&
           props.temperature[unit] &&
           props.temperature[unit].Value}
@@ -44,20 +45,20 @@ export default function Temperature(props: TemperatureProps) {
         <button
           id="unitToMetric"
           onClick={() => setUnit("Metric")}
-          className="cardGradient"
+          className={cn(unit === "Metric" ? "" : "opacity-60", "cardGradient")}
           type="button"
         >
-          <p className="text-4xl font-black text-primary">
+          <p className="text-2xl font-black text-primary md:text-4xl">
             {props.temperature?.Metric?.Unit}
           </p>
         </button>
         <button
           id="unitToImperial"
           onClick={() => setUnit("Imperial")}
-          className="cardGradient"
+          className={cn(unit === "Metric" ? "opacity-60" : "", "cardGradient")}
           type="button"
         >
-          <p className="text-4xl font-black text-primary">
+          <p className="text-2xl font-black text-primary md:text-4xl">
             {props.temperature?.Imperial?.Unit}
           </p>
         </button>

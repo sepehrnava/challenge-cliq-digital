@@ -49,6 +49,7 @@ const config = {
           },
         },
       }),
+
       colors: {
         border: "rgba(var(--border))",
         input: "rgba(var(--input))",

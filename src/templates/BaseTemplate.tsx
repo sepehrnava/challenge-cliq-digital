@@ -13,14 +13,16 @@ const BaseTemplate = (props: { children: React.ReactNode }) => {
       <div className="antialiased">
         <header className="h-[95px] bg-secondary">
           <nav className="container flex size-full w-full items-center">
-            <div className="prose">
-              <h1 className="">React Weather</h1>
+            <div className="">
+              <h1 className="text-[26px] font-black md:text-[36px]">
+                React Weather
+              </h1>
             </div>
           </nav>
         </header>
 
         <main>{props.children}</main>
-        <footer className="h-screen" />
+        <footer className="h-[300px]" />
       </div>
     </ThemeProvider>
   );

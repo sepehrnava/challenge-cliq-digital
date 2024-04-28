@@ -12,7 +12,7 @@ export default function TodayWeatherLayout(props?: TodayWeatherLoadingProps) {
     <div className="text-center ">
       <div className="prose mx-auto mb-[35px]">
         {props?.currentcondition && props.currentcondition.Link ? (
-          <p className="text-4xl font-black capitalize">
+          <p className="text-2xl font-black capitalize md:text-4xl">
             {(() => {
               const regex = /www\.accuweather\.com\/en\/(\w+)\/(\w+)\//;
               const match = regex.exec(props.currentcondition.Link);

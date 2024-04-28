@@ -95,7 +95,7 @@ async function Chart({ location }: { location?: string }) {
     <svg
       id="chart"
       className="svgAnimation overflow-visible"
-      viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+      viewBox={`0 0 ${chartWidth - 200} ${chartHeight}`}
       role="presentation"
     >
       <path

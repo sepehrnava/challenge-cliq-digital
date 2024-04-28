@@ -18,7 +18,9 @@ export default function FutureForecastWrapper(
     <div className="container pb-[115px] pt-[95px]">
       <div className="block">
         <div className="prose">
-          <h2 className="text-primary">Future Forecast</h2>
+          <h2 className="text-[24px] text-primary md:text-[36px]">
+            5 DAYS FORECAST
+          </h2>
         </div>
       </div>
       <Suspense fallback={<FutureForecastLayout />}>

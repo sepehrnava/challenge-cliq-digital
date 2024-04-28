@@ -16,7 +16,9 @@ export default async function GraphWrapper(props: GraphProps) {
     <div className="bg-secondary">
       <div className="container pb-[60px] pt-[92px]">
         <div className="prose">
-          <h2>DAILY EVOLUTION</h2>
+          <h2 className="mb-[50px] text-[24px] md:mb-0 md:text-[36px]">
+            DAILY EVOLUTION
+          </h2>
         </div>
         <Suspense fallback={<GraphLoading />}>
           <Chart location={props.searchParams?.city} />

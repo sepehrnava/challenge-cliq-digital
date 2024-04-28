@@ -144,10 +144,7 @@ const CityInput: React.FC<CityInputProps> = (props) => {
             style={{ display: open ? "block" : "none" }}
           >
             <div className="relative">
-              <CommandInput
-                autoFocus
-                placeholder="Search your city between top 150 cities"
-              />
+              <CommandInput autoFocus placeholder="Search your city" />
               <Geo setValue={setValue} />
             </div>
             <CommandEmpty>No city found.</CommandEmpty>
