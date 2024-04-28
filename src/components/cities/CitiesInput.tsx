@@ -18,6 +18,7 @@ import Spinner from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 import useCityLoader from "@/state/cityLoader.state";
 import type { City } from "@/types/weather/city.type";
+import useGps from "@/utils/hooks/useGps";
 
 import Geo from "./Geo";
 
@@ -29,13 +30,14 @@ const CityInput: React.FC<CityInputProps> = (props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { getGpsHandler, city: cityFromGps } = useGps();
   const inputBtnRef = React.useRef<HTMLButtonElement>(null);
   const citiesListRef = React.useRef<HTMLDivElement>(null);
   const [open, setOpen] = React.useState(false);
-
+  // mapping cities to local state to add new city to the list from gps as well
+  const [cities, setCities] = React.useState([...props.citiesInComboBox]);
   const [error, setError] = React.useState<string | null>(null);
   const { loading: isCityLoading } = useCityLoader();
-  const cities = props.citiesInComboBox;
 
   function cityIdToValue(id: string) {
     return cities.find((city) => city.Key === id)?.LocalizedName;
@@ -58,24 +60,44 @@ const CityInput: React.FC<CityInputProps> = (props) => {
     if (value === "") {
       if (current.has("city")) {
         current.delete("city");
+        const search = current.toString();
+        const query = search ? `?${search}` : "";
+        router.push(`${pathname}${query}`, { scroll: false });
+        return;
       }
-      const search = current.toString();
-      const query = search ? `?${search}` : "";
-      router.push(`${pathname}${query}`, { scroll: false });
+      getGpsHandler();
       return;
     }
     const foundCity = cities.find((city) => city.LocalizedName === value);
     if (!foundCity) {
-      setError("City does not exist in top 150 cities!");
+      if (cityFromGps !== value) {
+        setError("City does not exist in top 150 cities!");
+      } else {
+        setError(null);
+        setCities((prev) => [
+          ...prev,
+          {
+            Key: current.get("city")!,
+            LocalizedName: value,
+          },
+        ]);
+      }
     } else if (value) {
       setError(null);
-      current.set("city", cityValueToId(value) || "");
-      const search = current.toString();
-      const query = search ? `?${search}` : "";
-      router.push(`${pathname}${query}`, { scroll: false });
+      const cityID = cityValueToId(value);
+      if (typeof cityID === "string" && cityID !== "") {
+        current.set("city", cityID);
+        const search = current.toString();
+        const query = search ? `?${search}` : "";
+        router.push(`${pathname}${query}`, { scroll: false });
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+
+  React.useEffect(() => {
+    if (cityFromGps) setValue(cityFromGps);
+  }, [cityFromGps]);
 
   React.useEffect(() => {
     // if is open and clicked outside of inputBtnRef.current or citiesListRef.current then close
@@ -111,48 +133,48 @@ const CityInput: React.FC<CityInputProps> = (props) => {
           >
             {value
               ? cities.find((city) => city.LocalizedName === value)
-                  ?.LocalizedName
+                  ?.LocalizedName || cityFromGps
               : "Type city name..."}
             <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
-          {open && (
-            <Command
-              ref={citiesListRef}
-              className="absolute top-[50px] -mt-1 min-h-[300px] w-full bg-secondary"
-            >
-              <div className="relative">
-                <CommandInput
-                  autoFocus
-                  placeholder="Search your city between top 150 cities"
-                />
-                <Geo setValue={setValue} />
-              </div>
-              <CommandEmpty>No city found.</CommandEmpty>
-              <CommandGroup>
-                <ScrollArea className="">
-                  <CommandList className="!max-h-[250px]">
-                    {cities.map((city) => (
-                      <CommandItem
-                        key={city.LocalizedName}
-                        value={city.LocalizedName}
-                        onSelect={handleSelect}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            value === city.LocalizedName
-                              ? "opacity-100"
-                              : "opacity-0",
-                          )}
-                        />
-                        {city.LocalizedName}
-                      </CommandItem>
-                    ))}
-                  </CommandList>
-                </ScrollArea>
-              </CommandGroup>
-            </Command>
-          )}
+
+          <Command
+            ref={citiesListRef}
+            className="absolute top-[50px] -mt-1 hidden min-h-[300px] w-full bg-secondary"
+            style={{ display: open ? "block" : "none" }}
+          >
+            <div className="relative">
+              <CommandInput
+                autoFocus
+                placeholder="Search your city between top 150 cities"
+              />
+              <Geo setValue={setValue} />
+            </div>
+            <CommandEmpty>No city found.</CommandEmpty>
+            <CommandGroup>
+              <ScrollArea className="">
+                <CommandList className="!max-h-[250px]">
+                  {cities.map((city) => (
+                    <CommandItem
+                      key={city.LocalizedName}
+                      value={city.LocalizedName}
+                      onSelect={handleSelect}
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === city.LocalizedName
+                            ? "opacity-100"
+                            : "opacity-0",
+                        )}
+                      />
+                      {city.LocalizedName}
+                    </CommandItem>
+                  ))}
+                </CommandList>
+              </ScrollArea>
+            </CommandGroup>
+          </Command>
         </div>
         <div className="prose absolute right-2 top-1/2 -mt-px flex -translate-y-1/2">
           {isCityLoading && (
@@ -166,13 +188,6 @@ const CityInput: React.FC<CityInputProps> = (props) => {
       <div className="err h-7">
         {error && <p className="text-red-500">{error}</p>}
       </div>
-      <datalist id="city-list">
-        {props.citiesInComboBox?.map((city) => (
-          <option key={city.Key} label={city.Country.EnglishName}>
-            {city.LocalizedName}
-          </option>
-        ))}
-      </datalist>
     </>
   );
 };

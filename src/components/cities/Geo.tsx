@@ -1,11 +1,8 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
-import { sleep } from "@/lib/utils";
-import useCityLoader from "@/state/cityLoader.state";
-import type { City } from "@/types/weather/city.type";
+import useGps from "@/utils/hooks/useGps";
 
 interface GeoProps {
   setValue: React.Dispatch<React.SetStateAction<string>>;
@@ -13,64 +10,12 @@ interface GeoProps {
 
 // Geo component that ask for the user's location and if param does not exist in url, then add city param to the url of nearest city
 function Geo(props: GeoProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { setLoading } = useCityLoader();
+  const { city, getGpsHandler } = useGps();
 
-  const clickOnGpdHandler = () => {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-        let data: City;
-        setLoading("fetching nearest city from your location...");
-        if (process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY) {
-          const response = await fetch(
-            `/api/geo?latitude=${latitude}&longitude=${longitude}`,
-          );
-          data = await response.json();
-        } else {
-          data = (await import("@/data/150.json")).data[0]!;
-          await sleep();
-        }
-        setLoading(false);
-        if (!data.Key) {
-          return;
-        }
-        const current = new URLSearchParams(Array.from(searchParams.entries()));
-        current.set("city", data.Key);
-        const search = current.toString();
-        const query = search ? `?${search}` : "";
-        props.setValue(data.LocalizedName);
-        router.push(`${pathname}${query}`, { scroll: false });
-      },
-      async () => {
-        // try to get the city from the user's ip address
-        const ipResponse = await fetch("https://ipapi.co/json/");
-        const ipData: { ip: string } = await ipResponse.json();
-        const { ip } = ipData;
-        let data: City;
-        if (process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY) {
-          const cityResponse = await fetch(
-            `https://dataservice.accuweather.com/locations/v1/cities/ipaddress?apikey=${process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY}&q=${ip}`,
-          );
-          data = await cityResponse.json();
-        } else {
-          data = (await import("@/data/150.json")).data[0]!;
-          await sleep();
-        }
-        if (!data.Key) {
-          return;
-        }
-        const current = new URLSearchParams(Array.from(searchParams.entries()));
-        current.set("city", data.Key);
-        const search = current.toString();
-        const query = search ? `?${search}` : "";
-        props.setValue(data.LocalizedName);
-        router.push(`${pathname}${query}`, { scroll: false });
-      },
-    );
-  };
+  React.useEffect(() => {
+    props.setValue(city);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city]);
 
   return (
     <>
@@ -78,7 +23,7 @@ function Geo(props: GeoProps) {
         title="fill the input with your location"
         type="button"
         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-        onClick={clickOnGpdHandler}
+        onClick={getGpsHandler}
         aria-label="Get your location"
       >
         <svg

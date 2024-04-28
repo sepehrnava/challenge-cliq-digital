@@ -1,14 +1,14 @@
 export interface City {
-  Version: number;
+  Version?: number;
   Key: string;
-  Type: string;
-  Rank: number;
+  Type?: string;
+  Rank?: number;
   LocalizedName: string;
   EnglishName?: string;
   PrimaryPostalCode?: string;
   Region?: Region;
-  Country: Country;
-  AdministrativeArea: AdministrativeArea;
+  Country?: Country;
+  AdministrativeArea?: AdministrativeArea;
   TimeZone?: TimeZone;
   GeoPosition?: GeoPosition;
   IsAlias?: boolean;
