@@ -26,7 +26,7 @@ function Geo(props: GeoProps) {
         setLoading("fetching nearest city from your location...");
         if (process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY) {
           const response = await fetch(
-            `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY}&q=${latitude}%2C${longitude}&toplevel=true`,
+            `/api/geo?latitude=${latitude}&longitude=${longitude}`,
           );
           data = await response.json();
         } else {

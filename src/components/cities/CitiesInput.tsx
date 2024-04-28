@@ -66,7 +66,7 @@ const CityInput: React.FC<CityInputProps> = (props) => {
     }
     const foundCity = cities.find((city) => city.LocalizedName === value);
     if (!foundCity) {
-      setError("City not found");
+      setError("City does not exist in top 150 cities!");
     } else if (value) {
       setError(null);
       current.set("city", cityValueToId(value) || "");
@@ -112,7 +112,7 @@ const CityInput: React.FC<CityInputProps> = (props) => {
             {value
               ? cities.find((city) => city.LocalizedName === value)
                   ?.LocalizedName
-              : "Type a city..."}
+              : "Type city name..."}
             <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
           {open && (
@@ -121,7 +121,10 @@ const CityInput: React.FC<CityInputProps> = (props) => {
               className="absolute top-[50px] -mt-1 min-h-[300px] w-full bg-secondary"
             >
               <div className="relative">
-                <CommandInput autoFocus placeholder="Search city..." />
+                <CommandInput
+                  autoFocus
+                  placeholder="Search your city between top 150 cities"
+                />
                 <Geo setValue={setValue} />
               </div>
               <CommandEmpty>No city found.</CommandEmpty>
